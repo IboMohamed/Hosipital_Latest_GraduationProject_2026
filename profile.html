@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Profile - Salamtak</title>
+
+<link rel="icon" href="{{ url_for('static', filename='icon2.png') }}">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#0F2854,#1C4D8D);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:700px;
+    background:white;
+    border-radius:20px;
+    padding:40px;
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
+}
+
+h2{
+    text-align:center;
+    color:#1C4D8D;
+    margin-bottom:30px;
+}
+
+.profile-card{
+    background:#f8fbff;
+    border:1px solid #dbe8ff;
+    border-radius:15px;
+    padding:25px;
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    padding:12px 0;
+    border-bottom:1px solid #eee;
+}
+
+.row:last-child{
+    border-bottom:none;
+}
+
+.label{
+    font-weight:bold;
+    color:#1C4D8D;
+}
+
+.value{
+    color:#555;
+}
+
+.actions{
+    text-align:center;
+    margin-top:30px;
+}
+
+.btn{
+    display:inline-block;
+    padding:12px 25px;
+    background:#1C4D8D;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+    margin:5px;
+    transition:.3s;
+}
+
+.btn:hover{
+    background:#163d73;
+}
+
+.logout{
+    background:#dc3545;
+}
+
+.logout:hover{
+    background:#b52a37;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>👤 My Profile</h2>
+
+    <div class="profile-card">
+
+        <div class="row">
+            <span class="label">Username</span>
+            <span class="value">{{ user[0] }}</span>
+        </div>
+
+        <div class="row">
+            <span class="label">First Name</span>
+            <span class="value">{{ user[1] }}</span>
+        </div>
+
+        <div class="row">
+            <span class="label">Middle Name</span>
+            <span class="value">{{ user[2] }}</span>
+        </div>
+
+        <div class="row">
+            <span class="label">Last Name</span>
+            <span class="value">{{ user[3] }}</span>
+        </div>
+
+        <div class="row">
+            <span class="label">Email</span>
+            <span class="value">{{ user[4] }}</span>
+        </div>
+
+        <div class="row">
+            <span class="label">Phone</span>
+            <span class="value">{{ user[5] }}</span>
+        </div>
+
+        <div class="row">
+            <span class="label">Role</span>
+            <span class="value">{{ user[6] }}</span>
+        </div>
+
+        <div class="row">
+            <span class="label">Status</span>
+            <span class="value">{{ user[7] }}</span>
+        </div>
+
+    </div>
+
+    <div class="actions">
+
+        <a href="/patient" class="btn">
+            🏠 Dashboard
+        </a>
+
+        <a href="/logout" class="btn logout">
+            🚪 Logout
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

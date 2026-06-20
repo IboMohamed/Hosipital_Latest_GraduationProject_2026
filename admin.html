@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard - Salamtak</title>
+
+<link rel="icon" href="{{ url_for('static', filename='icon2.png') }}">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter', sans-serif;
+}
+
+body{
+    background: radial-gradient(circle at top, #1C4D8D, #0F2854);
+    padding:40px 15px;
+    min-height:100vh;
+}
+
+/* MAIN CONTAINER */
+.container{
+    max-width:1150px;
+    margin:auto;
+    background:rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    padding:30px;
+    border-radius:18px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.25);
+}
+
+/* HEADER */
+h2{
+    text-align:center;
+    font-size:32px;
+    color:#0F2854;
+}
+
+.subtitle{
+    text-align:center;
+    color:#666;
+    margin-top:6px;
+    margin-bottom:25px;
+}
+
+/* STATS */
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.card{
+    padding:18px;
+    border-radius:14px;
+    color:white;
+    text-align:center;
+    transition:0.3s;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+.card:hover{
+    transform:translateY(-6px);
+}
+
+/* different colors */
+.card:nth-child(1){ background:linear-gradient(135deg,#1C4D8D,#2E8BFF);}
+.card:nth-child(2){ background:linear-gradient(135deg,#16A085,#1ABC9C);}
+.card:nth-child(3){ background:linear-gradient(135deg,#8E44AD,#9B59B6);}
+.card:nth-child(4){ background:linear-gradient(135deg,#E67E22,#F39C12);}
+
+.card h3{
+    font-size:26px;
+}
+
+/* TABLE */
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:10px;
+    overflow:hidden;
+    border-radius:12px;
+}
+
+th{
+    background:#0F2854;
+    color:white;
+    padding:14px;
+}
+
+td{
+    padding:12px;
+    text-align:center;
+    border-bottom:1px solid #eee;
+}
+
+tr:nth-child(even){
+    background:#f7f9fc;
+}
+
+tr:hover{
+    background:#eaf2ff;
+}
+
+/* STATUS */
+.status{
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+    background:#27ae60;
+    color:white;
+}
+
+/* ACTIONS */
+.admin-actions{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+    margin-top:25px;
+}
+
+.action-btn{
+    background:white;
+    border:2px solid #1C4D8D;
+    color:#1C4D8D;
+    padding:14px;
+    text-align:center;
+    border-radius:12px;
+    text-decoration:none;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.action-btn:hover{
+    background:#1C4D8D;
+    color:white;
+    transform:translateY(-4px);
+    box-shadow:0 10px 25px rgba(28,77,141,0.3);
+}
+
+/* FOOTER */
+.footer{
+    margin-top:25px;
+    text-align:center;
+}
+
+.table-container{
+    max-height: 400px;
+    overflow-y: auto;
+    border-radius: 12px;
+}
+
+.logout{
+    display:inline-block;
+    padding:10px 18px;
+    border-radius:10px;
+    background:#0F2854;
+    color:white;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+.logout:hover{
+    background:#163d73;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+    h2{ font-size:24px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🏥 Admin Dashboard</h2>
+<p class="subtitle">Manage hospital system, users, doctors and operations</p>
+
+<!-- STATS -->
+<div class="stats">
+
+    <div class="card">
+        <h3>{{ users_count }}</h3>
+        <p>Total Users</p>
+    </div>
+
+    <div class="card">
+        <h3>{{ doctors_count }}</h3>
+        <p>Doctors</p>
+    </div>
+
+    <div class="card">
+        <h3>{{ appointments_count }}</h3>
+        <p>Appointments</p>
+    </div>
+
+    <div class="card">
+        <h3>{{ medicines_count }}</h3>
+        <p>Pharmacy Items</p>
+    </div>
+
+</div>
+
+<!-- TABLE -->
+ <div class="table-container">
+<table >
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Role</th>
+    <th>Status</th>
+</tr>
+
+{% for user in users %}
+<tr>
+    <td>{{ user[0] }}</td>
+    <td>{{ user[1] }}</td>
+    <td>{{ user[5] }}</td>
+    <td>{{ user[6] }}</td>
+    <td>{{ user[11] }}</td>
+    <td><span class="status">Active</span></td>
+</tr>
+{% endfor %}
+</table>
+</div>
+<!-- ACTIONS -->
+<div class="admin-actions">
+
+<a href="/add_user" class="action-btn">➕ Add User</a>
+<a href="/doctors" class="action-btn">👨‍⚕️ Manage Doctors</a>
+<a href="/departments" class="action-btn">🏥 Departments</a>
+<a href="/appointments" class="action-btn">📅 Appointments</a>
+<a href="/pharmacy_stock" class="action-btn">💊 Pharmacy Stock</a>
+<a href="/prescriptions" class="action-btn">📄 Prescriptions</a>
+
+</div>
+
+<div class="footer">
+    <a class="logout" href="/logout">Logout</a>
+</div>
+
+</div>
+
+</body>
+</html>

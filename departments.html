@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Departments - Salamtak</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #0F2854, #1C4D8D);
+    min-height:100vh;
+    padding:40px 20px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    background:white;
+    border-radius:20px;
+    padding:40px;
+    box-shadow:
+        0 10px 25px rgba(0,0,0,0.1),
+        0 20px 50px rgba(0,0,0,0.15);
+}
+
+.top-section{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.title h2{
+    color:#1C4D8D;
+    font-size:32px;
+}
+
+.title p{
+    color:gray;
+}
+
+.department-form{
+    background:#f7f9fc;
+    padding:25px;
+    border-radius:14px;
+    margin-bottom:30px;
+}
+
+.form-grid,
+.table-wrapper{
+    background:#f8fbff;
+    border:1px solid #e4edf7;
+    border-radius:16px;
+    padding:25px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 2fr auto;
+    gap:20px;
+}
+
+.table-wrapper{
+    overflow-x:auto;
+    margin-top:25px;  
+    margin-bottom:35px;  
+}
+
+.department-form input{
+    padding:14px;
+    border:1px solid #ccc;
+    border-radius:10px;
+}
+
+.add-btn{
+    background:linear-gradient(135deg,#1C4D8D,#0F2854);
+    color:white;
+    border:none;
+    border-radius:10px;
+    padding:14px 24px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#1C4D8D;
+    color:white;
+    padding:15px;
+}
+
+td{
+    padding:14px;
+    text-align:center;
+    border-bottom:1px solid #eee;
+}
+
+tr:hover{
+    background:#f5f9ff;
+}
+
+.status{
+    padding:6px 12px;
+    border-radius:20px;
+    color:white;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.active{
+    background:#28a745;
+}
+
+.inactive{
+    background:#dc3545;
+}
+
+.action-btn{
+    text-decoration:none;
+    padding:8px 12px;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.edit{
+    background:#e8f1ff;
+    color:#1C4D8D;
+}
+
+.delete{
+    background:#ffe5e5;
+    color:#dc3545;
+}
+
+/* SEARCH */
+.search-box{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.search-box input{
+    padding:12px;
+    width:83%;
+    border-radius:8px;
+    border:1px solid #ccc;
+    outline:none;
+    transition:0.3s;
+}
+
+.search-box input:focus{
+    border-color:#1C4D8D;
+    box-shadow:0 0 5px rgba(28,77,141,0.3);
+}
+
+.search-box button{
+    padding:12px 18px;
+    background:#1C4D8D;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    margin-left:5px;
+}
+
+.search-box button:hover{
+    background:#163d73;
+}
+
+.back-btn{
+    display:inline-block;
+    margin-top:25px;
+    padding:12px 20px;
+    background:#f1f5f9;
+    color:#1C4D8D;
+    text-decoration:none;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="top-section">
+
+<div class="title">
+    <h2>🏥 Departments Management</h2>
+    <p>Manage hospital departments and services</p>
+</div>
+
+</div>
+
+<form method="POST" class="department-form">
+
+<div class="form-grid">
+
+<input type="text" name="name" placeholder="Department Name" required>
+
+<input type="text" name="description" placeholder="Department Description" required>
+
+<button type="submit" class="add-btn">
+    ➕ Add
+</button>
+</div>
+</form>
+<form class="search-box" method="GET" action="/departments">
+
+    <input
+        type="text"
+        name="search"
+        placeholder="Search by ID, department name or description..."
+        value="{{ request.args.get('search','') }}"
+    >
+
+    <button type="submit">
+        🔍 Search
+    </button>
+
+</form>
+<table>
+
+<tr>
+    <th>ID</th>
+    <th>Department</th>
+    <th>Description</th>
+    <th>Status</th>
+    <th>Actions</th>
+</tr>
+
+{% for d in departments %}
+
+<tr>
+
+<td>{{ d[0] }}</td>
+
+<td>
+    <strong>{{ d[1] }}</strong>
+</td>
+
+<td>{{ d[2] }}</td>
+
+<td>
+
+{% if d[3] == 'Active' %}
+
+<span class="status active">
+    ✔ Active
+</span>
+
+{% else %}
+
+<span class="status inactive">
+    ✖ Inactive
+</span>
+
+{% endif %}
+
+</td>
+
+<td>
+
+<a href="/update_department/{{ d[0] }}" class="action-btn edit">
+    ✏ Edit
+</a>
+
+<a href="/delete_department/{{ d[0] }}"
+   onclick="return confirm('Delete this department?')"
+   class="action-btn delete">
+    🗑 Delete
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+<a href="/admin" class="back-btn">
+    ⬅ Back to Admin Panel
+</a>
+
+</div>
+
+
+</div>
+
+</body>
+</html>

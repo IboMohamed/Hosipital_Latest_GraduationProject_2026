@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patient Dashboard - Salamtak</title>
+
+<link rel="icon" href="{{ url_for('static', filename='icon2.png') }}">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:linear-gradient(135deg,#0F2854,#1C4D8D);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:900px;
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.25);
+}
+
+h2{
+    text-align:center;
+    color:#1C4D8D;
+    margin-bottom:10px;
+    font-size:36px;
+}
+
+.subtitle{
+    text-align:center;
+    color:gray;
+    margin-bottom:35px;
+}
+
+/* Statistics */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:20px;
+    margin-bottom:35px;
+}
+
+.card-stat{
+    background:linear-gradient(135deg,#1C4D8D,#0F2854);
+    color:white;
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+}
+
+.card-stat h3{
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+/* Cards */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:#f5f9ff;
+    padding:35px 20px;
+    border-radius:16px;
+    text-decoration:none;
+    transition:0.3s;
+    border:1px solid #dbe8ff;
+    text-align:center;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    background:#eaf2ff;
+}
+
+.icon{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+.card h3{
+    color:#1C4D8D;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:gray;
+    font-size:14px;
+}
+
+/* Logout */
+
+.footer{
+    text-align:center;
+    margin-top:35px;
+}
+
+.logout{
+    display:inline-block;
+    padding:12px 25px;
+    background:#1C4D8D;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.logout:hover{
+    background:#163d73;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>🧑 Patient Dashboard</h2>
+
+    <p class="subtitle">
+        Manage your appointments and medical information
+    </p>
+
+    <div class="stats">
+
+        <div class="card-stat">
+            
+            <h3>{{ appointments_count }}</h3>
+            <p>Appointments</p>
+        </div>
+
+        <div class="card-stat">
+            <h3>{{ prescriptions_count }}</h3>
+            <p>Prescriptions</p>
+        </div>
+     </div>
+
+    <div class="cards">
+
+        <a href="/patient_appointments" class="card">
+            <div class="icon">📅</div>
+            <h3>Appointments</h3>
+            <p>View your appointments</p>
+        </a>
+
+        <a href="/patient_prescriptions" class="card">
+            <div class="icon">💊</div>
+            <h3>Prescriptions</h3>
+            <p>View prescribed medicines</p>
+        </a>
+        <a href="/profile" class="card">
+            <div class="icon">👤</div>
+            <h3>My Profile</h3>
+            <p>View personal information</p>
+        </a>
+
+    </div>
+
+    <div class="footer">
+        <a href="/logout" class="logout">
+            🚪 Logout
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>

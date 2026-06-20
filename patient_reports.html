@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medical Reports - Salamtak</title>
+
+<link rel="icon" href="{{ url_for('static', filename='icon2.png') }}">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial;
+    background:linear-gradient(135deg,#0F2854,#1C4D8D);
+    min-height:100vh;
+    padding:30px;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    background:white;
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 15px 35px rgba(0,0,0,.2);
+}
+
+h2{
+    color:#1C4D8D;
+    text-align:center;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    text-align:center;
+    color:gray;
+    margin-bottom:30px;
+}
+
+.section-title{
+    color:#1C4D8D;
+    margin-top:20px;
+    margin-bottom:15px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-bottom:30px;
+}
+
+th{
+    background:#1C4D8D;
+    color:white;
+    padding:12px;
+}
+
+td{
+    padding:12px;
+    text-align:center;
+    border-bottom:1px solid #ddd;
+}
+
+tr:hover{
+    background:#f5f9ff;
+}
+
+.empty{
+    text-align:center;
+    color:gray;
+    padding:20px;
+}
+
+.actions{
+    text-align:center;
+    margin-top:20px;
+}
+
+.btn{
+    display:inline-block;
+    padding:12px 24px;
+    background:#1C4D8D;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+    margin:5px;
+}
+
+.btn:hover{
+    background:#163d73;
+}
+
+.logout{
+    background:#dc3545;
+}
+
+.logout:hover{
+    background:#b52a37;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>🩺 Medical Reports</h2>
+
+    <p class="subtitle">
+        View your reports and laboratory results
+    </p>
+
+    <h3 class="section-title">Medical Reports</h3>
+
+    {% if reports %}
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Diagnosis</th>
+            <th>Treatment</th>
+            <th>Date</th>
+        </tr>
+
+        {% for r in reports %}
+        <tr>
+            <td>{{ r[0] }}</td>
+            <td>{{ r[1] }}</td>
+            <td>{{ r[2] }}</td>
+            <td>{{ r[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% else %}
+        <div class="empty">No medical reports found.</div>
+    {% endif %}
+
+    <h3 class="section-title">Laboratory Results</h3>
+
+    {% if lab_results %}
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Test Name</th>
+            <th>Result</th>
+            <th>Date</th>
+        </tr>
+
+        {% for lab in lab_results %}
+        <tr>
+            <td>{{ lab[0] }}</td>
+            <td>{{ lab[1] }}</td>
+            <td>{{ lab[2] }}</td>
+            <td>{{ lab[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% else %}
+        <div class="empty">No lab results found.</div>
+    {% endif %}
+
+    <div class="actions">
+        <a href="/patient" class="btn">🏠 Dashboard</a>
+        <a href="/logout" class="btn logout">🚪 Logout</a>
+    </div>
+
+</div>
+
+</body>
+</html>

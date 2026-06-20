@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Doctor Prescriptions</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:linear-gradient(135deg,#0F2854,#1C4D8D);
+    margin:0;
+    padding:40px;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:18px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.2);
+}
+
+h2{
+    text-align:center;
+    color:#1C4D8D;
+    margin-bottom:25px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:14px;
+    text-align:center;
+    border-bottom:1px solid #ddd;
+}
+
+th{
+    background:#1C4D8D;
+    color:white;
+}
+
+tr:hover{
+    background:#f5f5f5;
+}
+
+.form-card{
+    background:#f8fbff;
+    border:1px solid #dbe8ff;
+    border-radius:15px;
+    padding:25px;
+    margin-bottom:30px;
+}
+
+.form-title{
+    color:#1C4D8D;
+    margin-bottom:20px;
+    text-align:center;
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:bold;
+    color:#1C4D8D;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:14px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+    outline:none;
+    border-color:#1C4D8D;
+    box-shadow:0 0 5px rgba(28,77,141,0.3);
+}
+
+.btn-save{
+    width:100%;
+    padding:14px;
+    border:none;
+    background:#1C4D8D;
+    color:white;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn-save:hover{
+    background:#163d73;
+}
+
+.section-title{
+    color:#1C4D8D;
+    margin-bottom:15px;
+}
+
+.back{
+    display:inline-block;
+    margin-top:20px;
+    padding:10px 18px;
+    background:#1C4D8D;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+}
+
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<h2>📄 Doctor Prescriptions</h2>
+<div class="form-card">
+
+    <h3 class="form-title">
+        ➕ Create New Prescription
+    </h3>
+
+    <form method="POST" action="/add_prescription">
+
+        <div class="form-group">
+            <label>Select Patient</label>
+
+            <select name="patient_id" id="patient_id" required>
+
+    <option value="">Choose Patient</option>
+
+    {% for patient in patients %}
+    <option
+        value="{{ patient[0] }}"
+        data-appointment="{{ patient[2] }}">
+        {{ patient[1] }}
+    </option>
+    {% endfor %}
+
+</select>
+        </div>
+
+        <div class="form-group">
+            <label>Appointment ID</label>
+
+    <input
+        type="text"
+        id="appointment_id_display"
+        readonly
+        placeholder="Select a patient first">
+
+    <input
+        type="hidden"
+        name="appointment_id"
+        id="appointment_id">
+        </div>
+
+        <div class="form-group">
+            <label>Prescription Notes</label>
+
+            <textarea
+                name="notes"
+                rows="5"
+                placeholder="Enter prescription details..."
+                required></textarea>
+        </div>
+
+        <button type="submit" class="btn-save">
+            💾 Save Prescription
+        </button>
+
+    </form>
+
+</div>
+
+<hr style="margin:30px 0;">
+
+<!-- Prescriptions Table -->
+
+<table>
+
+<tr>
+    <th>ID</th>
+    <th>Patient</th>
+    <th>Issue Date</th>
+    <th>Notes</th>
+</tr>
+
+{% for prescription in prescriptions %}
+
+<tr>
+    <td>{{ prescription[0] }}</td>
+    <td>{{ prescription[1] }}</td>
+    <td>{{ prescription[2] }}</td>
+    <td>{{ prescription[3] }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<a href="/doctor" class="back">⬅ Back</a>
+
+</div>
+<script>
+
+document.getElementById("patient_id").addEventListener("change", function(){
+
+    let selected =
+        this.options[this.selectedIndex];
+
+    let appointmentId =
+        selected.getAttribute("data-appointment");
+
+    document.getElementById(
+        "appointment_id"
+    ).value = appointmentId || "";
+
+    document.getElementById(
+        "appointment_id_display"
+    ).value = appointmentId || "No appointment found";
+
+});
+
+</script>
+</body>
+</html>

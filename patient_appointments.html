@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Appointments - Salamtak</title>
+
+<link rel="icon" href="{{ url_for('static', filename='icon2.png') }}">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#0F2854,#1C4D8D);
+    min-height:100vh;
+    padding:30px;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    background:white;
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.25);
+}
+
+h2{
+    text-align:center;
+    color:#1C4D8D;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    text-align:center;
+    color:gray;
+    margin-bottom:30px;
+}
+
+.section-title{
+    color:#1C4D8D;
+    margin-bottom:15px;
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:bold;
+    color:#1C4D8D;
+}
+
+.form-group select,
+.form-group input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+.form-group select:focus,
+.form-group input:focus{
+    outline:none;
+    border-color:#1C4D8D;
+}
+
+.btn{
+    display:inline-block;
+    padding:12px 25px;
+    background:#1C4D8D;
+    color:white;
+    text-decoration:none;
+    border:none;
+    border-radius:10px;
+    transition:0.3s;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.btn:hover{
+    background:#163d73;
+}
+
+.logout{
+    background:#dc3545;
+}
+
+.logout:hover{
+    background:#bb2d3b;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+th{
+    background:#1C4D8D;
+    color:white;
+    padding:14px;
+    text-align:center;
+}
+
+td{
+    padding:12px;
+    text-align:center;
+    border-bottom:1px solid #ddd;
+}
+
+tr:hover{
+    background:#f5f9ff;
+}
+
+.empty{
+    text-align:center;
+    padding:30px;
+    color:gray;
+    font-size:18px;
+}
+
+.actions{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-top:30px;
+    flex-wrap:wrap;
+}
+
+hr{
+    margin:30px 0;
+    border:none;
+    border-top:1px solid #ddd;
+}
+
+@media(max-width:768px){
+
+    .container{
+        padding:20px;
+    }
+
+    table{
+        font-size:14px;
+    }
+
+    th,td{
+        padding:8px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>📅 My Appointments</h2>
+
+    <p class="subtitle">
+        View and book appointments
+    </p>
+
+    <!-- BOOK APPOINTMENT FORM -->
+
+    <h3 class="section-title">
+        ➕ Book New Appointment
+    </h3>
+
+    <form method="POST" action="/book_appointment">
+
+        <div class="form-group">
+
+            <label>Choose Doctor</label>
+
+            <select name="doctor_id" required>
+
+                <option value="">Select Doctor</option>
+
+                {% for d in doctors %}
+                <option value="{{ d[0] }}">
+                    Dr. {{ d[1] }} - {{ d[2] }}
+                </option>
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Appointment Date & Time</label>
+
+            <input
+                type="datetime-local"
+                name="appointment_date"
+                required>
+
+        </div>
+
+        <button type="submit" class="btn">
+            📅 Book Appointment
+        </button>
+
+    </form>
+
+    <hr>
+
+    <!-- APPOINTMENTS TABLE -->
+
+    <h3 class="section-title">
+        📋 My Scheduled Appointments
+    </h3>
+
+    {% if appointments %}
+
+    <table>
+
+        <tr>
+            <th>Appointment ID</th>
+            <th>Doctor</th>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
+
+        {% for a in appointments %}
+
+        <tr>
+            <td>{{ a[0] }}</td>
+            <td>{{ a[1] }}</td>
+            <td>{{ a[2] }}</td>
+            <td>{{ a[3] }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    {% else %}
+
+    <div class="empty">
+        No appointments found.
+    </div>
+
+    {% endif %}
+
+    <div class="actions">
+
+        <a href="/patient" class="btn">
+            🏠 Dashboard
+        </a>
+
+        <a href="/logout" class="btn logout">
+            🚪 Logout
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

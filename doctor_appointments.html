@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Doctor Appointments</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:linear-gradient(135deg,#0F2854,#1C4D8D);
+    margin:0;
+    padding:40px;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:18px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.2);
+}
+
+h2{
+    text-align:center;
+    color:#1C4D8D;
+    margin-bottom:25px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:14px;
+    text-align:center;
+    border-bottom:1px solid #ddd;
+}
+
+th{
+    background:#1C4D8D;
+    color:white;
+}
+
+tr:hover{
+    background:#f5f5f5;
+}
+
+.back{
+    display:inline-block;
+    margin-top:20px;
+    padding:10px 18px;
+    background:#1C4D8D;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>📅 Appointments</h2>
+
+<table>
+
+<tr>
+    <th>Appointment ID</th>
+    <th>Patient Name</th>
+    <th>Doctor Name</th>
+    <th>Appointment Date</th>
+</tr>
+
+{% for appointment in appointments %}
+
+<tr>
+    <td>{{ appointment[0] }}</td>
+    <td>{{ appointment[1] }}</td>
+    <td>{{ appointment[2] }}</td>
+    <td>{{ appointment[3] }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<a href="/doctor" class="back">⬅ Back</a>
+
+</div>
+
+</body>
+</html>

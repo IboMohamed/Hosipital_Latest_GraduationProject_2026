@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delete Doctor - Salamtak</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#0F2854,#1C4D8D);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:550px;
+    background:white;
+    padding:40px;
+    border-radius:18px;
+    text-align:center;
+    box-shadow:0 15px 35px rgba(0,0,0,0.25);
+}
+
+.icon{
+    font-size:70px;
+    margin-bottom:20px;
+}
+
+h2{
+    color:#dc3545;
+    margin-bottom:15px;
+    font-size:32px;
+}
+
+p{
+    color:#555;
+    margin-bottom:30px;
+    line-height:1.7;
+    font-size:16px;
+}
+
+.doctor-box{
+    background:#f8f9fa;
+    padding:18px;
+    border-radius:12px;
+    margin-bottom:30px;
+    border-left:5px solid #dc3545;
+}
+
+.doctor-box h3{
+    color:#1C4D8D;
+    margin-bottom:8px;
+}
+
+.doctor-box span{
+    color:gray;
+    font-size:14px;
+}
+
+.buttons{
+    display:flex;
+    gap:15px;
+    justify-content:center;
+}
+
+.btn{
+    padding:13px 22px;
+    border:none;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+.delete{
+    background:#dc3545;
+    color:white;
+}
+
+.delete:hover{
+    background:#bb2d3b;
+}
+
+.cancel{
+    background:#e9ecef;
+    color:#1C4D8D;
+}
+
+.cancel:hover{
+    background:#dbe2ea;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="icon">🗑</div>
+
+<h2>Delete Doctor</h2>
+
+<p>
+    Are you sure you want to delete this doctor?
+    This action cannot be undone.
+</p>
+
+<div class="doctor-box">
+
+    <h3>{{ doctor[1] }}</h3>
+
+    <span>
+        {{ doctor[2] }} • {{ doctor[3] }} Years Experience
+    </span>
+
+</div>
+
+<form method="POST">
+
+<div class="buttons">
+
+    <button type="submit" class="btn delete">
+        ✔ Yes, Delete
+    </button>
+
+    <a href="/doctors" class="btn cancel">
+        Cancel
+    </a>
+
+</div>
+
+</form>
+
+</div>
+
+</body>
+</html>

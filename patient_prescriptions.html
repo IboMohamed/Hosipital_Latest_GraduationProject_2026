@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Prescriptions - Salamtak</title>
+
+<link rel="icon" href="{{ url_for('static', filename='icon2.png') }}">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial;
+    background:linear-gradient(135deg,#0F2854,#1C4D8D);
+    min-height:100vh;
+    padding:30px;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    background:white;
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.2);
+}
+
+h2{
+    text-align:center;
+    color:#1C4D8D;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    text-align:center;
+    color:gray;
+    margin-bottom:25px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#1C4D8D;
+    color:white;
+    padding:14px;
+}
+
+td{
+    text-align:center;
+    padding:12px;
+    border-bottom:1px solid #ddd;
+}
+
+tr:hover{
+    background:#f5f9ff;
+}
+
+.actions{
+    margin-top:25px;
+    text-align:center;
+}
+
+.btn{
+    display:inline-block;
+    padding:12px 24px;
+    background:#1C4D8D;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+    margin:5px;
+}
+
+.notes{
+    max-width:400px;
+    text-align:left;
+    white-space:pre-wrap;
+    word-wrap:break-word;
+}
+
+.btn:hover{
+    background:#163d73;
+}
+
+.logout{
+    background:#dc3545;
+}
+
+.logout:hover{
+    background:#b52a37;
+}
+
+.empty{
+    text-align:center;
+    color:gray;
+    padding:30px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>💊 My Prescriptions</h2>
+
+    <p class="subtitle">
+        View prescriptions issued by your doctors
+    </p>
+
+    {% if prescriptions %}
+
+    <table>
+
+        <tr>
+    <th>Prescription ID</th>
+    <th>Doctor</th>
+    <th>Issue Date</th>
+    <th>Prescription Notes</th>
+</tr>
+
+        {% for p in prescriptions %}
+<tr>
+    <td>{{ p[0] }}</td>
+    <td>{{ p[1] }}</td>
+    <td>{{ p[2] }}</td>
+    <td style="text-align:left;">
+        {{ p[3] }}
+    </td>
+</tr>
+{% endfor %}
+
+    </table>
+
+    {% else %}
+
+    <div class="empty">
+        No prescriptions found.
+    </div>
+
+    {% endif %}
+
+    <div class="actions">
+
+        <a href="/patient" class="btn">
+            🏠 Dashboard
+        </a>
+
+        <a href="/logout" class="btn logout">
+            🚪 Logout
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>
